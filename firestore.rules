@@ -1,0 +1,108 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Official Founder Email check (Shri Beni Singh Kewat)
+    function isFounderEmail() {
+      return isAuthenticated() && 
+             request.auth.token.email != null &&
+             request.auth.token.email.lower() == 'vikramstar864@gmail.com';
+    }
+
+    // Helper to get user profile document
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    // Super Admin check: Must be the verified founder email OR have role == 'superadmin' and not be revoked
+    function isSuperAdmin() {
+      return isAuthenticated() && 
+             ((getUserData().role == 'superadmin' || request.auth.token.role == 'superadmin' || isFounderEmail()) &&
+              getUserData().isRevoked != true);
+    }
+    
+    // Officer check: Must have role == 'officer' or be superadmin, and not be revoked
+    function isOfficer() {
+      return isAuthenticated() && 
+             (getUserData().role == 'officer' || isSuperAdmin() || request.auth.token.role == 'officer') &&
+             getUserData().isRevoked != true;
+    }
+
+    // 1. Users collection
+    match /users/{userId} {
+      // Users can read their own profile; Officers and Super Admins can read user profiles
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isOfficer() || isSuperAdmin());
+      
+      // Standard users can create their own profile initially with role 'volunteer' or 'member'
+      // Only the verified founder email can initialize themselves as superadmin
+      allow create: if isAuthenticated() && request.auth.uid == userId && 
+                    ((request.resource.data.role in ['volunteer', 'member']) ||
+                     (isFounderEmail() && request.resource.data.role == 'superadmin'));
+                    
+      // Users can update their own profile fields EXCEPT role and isRevoked
+      // Only Super Admin can change roles or revoke access
+      allow update: if isSuperAdmin() || 
+                    (isAuthenticated() && request.auth.uid == userId && 
+                     !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'isRevoked', 'assignedZone']));
+                     
+      allow delete: if isSuperAdmin();
+    }
+
+    // 2. Volunteer Applications collection
+    match /volunteerApplications/{applicationId} {
+      // Public / Volunteers can read ONLY their own application by userId or email query
+      // Officers and Super Admins can read all applications
+      allow read: if isOfficer() || isSuperAdmin() || 
+                  (isAuthenticated() && (resource.data.userId == request.auth.uid || resource.data.email == request.auth.token.email));
+                  
+      // Authenticated volunteers can create applications for themselves with initial status 'आवेदन प्राप्त'
+      allow create: if isAuthenticated() && 
+                    request.resource.data.userId == request.auth.uid &&
+                    request.resource.data.status in ['आवेदन प्राप्त', 'समीक्षा में'];
+                    
+      // Status update (Approval, Rejection, Notes) restricted to Officers & Super Admins
+      // Volunteers can only edit their contact details while status is 'आवेदन प्राप्त' or 'समीक्षा में'
+      allow update: if (isOfficer() || isSuperAdmin()) ||
+                    (isAuthenticated() && resource.data.userId == request.auth.uid && 
+                     !request.resource.data.diff(resource.data).affectedKeys().hasAny(['status', 'approvedAt', 'approvedBy', 'memberId', 'verificationStatus', 'rejectionReason']));
+                     
+      allow delete: if isSuperAdmin();
+    }
+
+    // 3. Activity Logs (Audit Trail)
+    match /activityLogs/{logId} {
+      allow read: if isOfficer() || isSuperAdmin();
+      allow create: if isAuthenticated() && (isOfficer() || isSuperAdmin());
+      allow update, delete: if false; // Append-only audit trail
+    }
+
+    // 4. Officer Assignments & Roles Registry
+    match /officerAssignments/{officerUid} {
+      allow read: if isAuthenticated() && (request.auth.uid == officerUid || isSuperAdmin());
+      allow write: if isSuperAdmin();
+    }
+
+    // 5. System Config & Public Foundation Info
+    match /config/{configDoc} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    // 6. Confidential Officer Applications (Strict Super Admin access)
+    match /officerApplications/{applicationId} {
+      // Super Admin can read all; applicant can only read their own
+      allow read: if isSuperAdmin() || (isAuthenticated() && resource.data.email == request.auth.token.email);
+      
+      // Controlled creation with initial status 'Pending'
+      allow create: if request.resource.data.status == 'Pending';
+      
+      // Status change, approval, rejection, and deletion restricted strictly to Super Admin
+      allow update, delete: if isSuperAdmin();
+    }
+  }
+}

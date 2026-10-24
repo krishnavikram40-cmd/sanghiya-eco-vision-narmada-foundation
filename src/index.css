@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  /* =========================================================================
+     केंद्रीय थीम रंग (Centralized Theme Colors)
+     संघीय इको-विजन नर्मदा फाउंडेशन (Sanghiya Eco-Vision Narmada Foundation)
+     भविष्य में वेबसाइट के रंग बदलने के लिए नीचे दिए गए मान बदलें:
+     ========================================================================= */
+  --theme-deep-green: #064e3b;    /* 1. गहरा हरा (Primary Forest & Nature Green) */
+  --theme-narmada-blue: #1c3f60;  /* 2. नर्मदा नीला (Sacred River Waters & Waves) */
+  --theme-gold: #f59e0b;          /* 3. हल्का सुनहरा (Auspicious Gold / Amber) */
+  --theme-gold-light: #fef08a;    /* 4. दीप्तिमान स्वर्ण आभा (Light Gold) */
+  --theme-white: #ffffff;         /* 5. पावन श्वेत (Pure White) */
+  --theme-bg-light: #f8fafc;      /* 6. पृष्ठभूमि (Slate Light Background) */
+  --theme-text-dark: #0f172a;     /* 7. मुख्य टेक्स्ट (Deep Slate) */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Yantramanav', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+.font-heading {
+  font-family: 'Rozha One', 'Yantramanav', serif;
+}
+
+.font-body {
+  font-family: 'Yantramanav', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Custom river water gradient shimmer effect */
+@keyframes waterFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-water-shimmer {
+  background-size: 200% 200%;
+  animation: waterFlow 12s ease infinite;
+}
+
+/* Print friendly rules for reports / offline records */
+@media print {
+  header, footer, .no-print {
+    display: none !important;
+  }
+}

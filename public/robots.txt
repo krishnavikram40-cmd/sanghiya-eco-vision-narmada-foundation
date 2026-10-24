@@ -1,0 +1,9 @@
+# robots.txt for संघीय इको-विजन नर्मदा फाउंडेशन (Sanghiya Eco-Vision Narmada Foundation)
+# Allow all search engine crawlers (Googlebot, Bingbot, etc.) to index the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location (कृपया अपनी वेबसाइट का असली डोमेन मिलने के बाद इस URL को अपडेट करें)
+# उदाहरण: Sitemap: https://yourdomain.org/sitemap.xml
+Sitemap: /sitemap.xml

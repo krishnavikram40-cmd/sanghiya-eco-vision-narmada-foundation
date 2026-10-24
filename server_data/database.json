@@ -1,0 +1,105 @@
+{
+  "admin": {
+    "adminId": "SEVNF-ADMIN-01",
+    "username": "admin@sevnf.org",
+    "passwordHash": "cf34d2a0a0b8386910685ec1a8fd1400d713f749638f145566fcc31aac1da618697a7a92a68baf9240667de2588d220a9faa3ce8d376dba42baf96dfda479f98",
+    "salt": "61fdf5db04b05905b6d406c7e01c0377",
+    "recoveryPinHash": "380bdb8460875285141f0f67409a3b60457ab0971f09cb329b1669d7d1c08860eed620625ef7daa8ad9a572352b6826712c01c9361b01e1724e8369e49f52724",
+    "recoveryPinSalt": "bee14d17cfb85024514db9710b303e90",
+    "isConfigured": true
+  },
+  "users": [],
+  "applications": [
+    {
+      "id": "SEVNF-VOL-000101",
+      "applicationReference": "SEVNF-APP-2026-000101",
+      "memberId": "SEVNF-MP-2026-000101",
+      "certificateNumber": "CERT-SEVNF-2026-000101",
+      "receiptNumber": "REC-SEVNF-2026-000101",
+      "fullName": "राहुल शर्मा",
+      "fatherOrGuardianName": "श्री रामेश्वर शर्मा",
+      "phone": "9826012345",
+      "alternatePhone": "9425012345",
+      "email": "rahul.narmada@gmail.com",
+      "dob": "1996-05-14",
+      "gender": "पुरुष",
+      "country": "भारत (India)",
+      "state": "मध्य प्रदेश (Madhya Pradesh)",
+      "district": "जबलपुर (Jabalpur)",
+      "tehsil": "पनागर (Panagar)",
+      "village": "गौरीघाट तटवर्ती बस्ती",
+      "isCustomVillage": false,
+      "pincode": "482001",
+      "fullAddress": "गौरीघाट वार्ड नं. 4, जबलपुर, मध्य प्रदेश",
+      "applicationType": "पर्यावरण स्वयंसेवक",
+      "reasonForJoining": "माँ नर्मदा के पवित्र गौरीघाट को प्लास्टिक मुक्त व स्वच्छ रखने हेतु नियमित श्रमदान का संकल्प।",
+      "serviceInterests": [
+        "नर्मदा घाट सफाई",
+        "प्लास्टिक प्रदूषण नियंत्रण",
+        "वृक्षारोपण"
+      ],
+      "availableTime": "सप्ताहांत (शनिवार / रविवार)",
+      "verificationStatus": "सत्यापित",
+      "registeredAt": "10/10/2026, 11:30 am",
+      "verifiedAt": "11/10/2026, 02:15 pm",
+      "verifiedBy": "मुख्य अधिकृत एडमिन (SEVNF-ADMIN-01)",
+      "adminNotes": "पहचान व स्थानीय निवास सत्यापित। घाट श्रमदान में सक्रिय सहभागिता अनुमोदित।"
+    },
+    {
+      "id": "SEVNF-VOL-000102",
+      "applicationReference": "SEVNF-APP-2026-000102",
+      "certificateNumber": "CERT-SEVNF-2026-000102",
+      "receiptNumber": "REC-SEVNF-2026-000102",
+      "fullName": "प्रिया पटेल",
+      "fatherOrGuardianName": "श्री नारायण पटेल",
+      "phone": "9425098765",
+      "alternatePhone": "",
+      "email": "priya.patel@gmail.com",
+      "dob": "2001-08-22",
+      "gender": "महिला",
+      "country": "भारत (India)",
+      "state": "मध्य प्रदेश (Madhya Pradesh)",
+      "district": "नर्मदापुरम / होशंगाबाद (Narmadapuram)",
+      "tehsil": "नर्मदापुरम नगर व ग्रामीण",
+      "village": "सेठानी घाट परिक्षेत्र",
+      "isCustomVillage": false,
+      "pincode": "461001",
+      "fullAddress": "सेठानी घाट रोड, नर्मदापुरम",
+      "applicationType": "नर्मदा प्रहरी",
+      "reasonForJoining": "तटवर्ती विद्यालयों में पर्यावरण जन-जागरूकता फैलाना और घाटों पर कपड़े के थैलों का वितरण।",
+      "serviceInterests": [
+        "पर्यावरण जागरूकता",
+        "प्लास्टिक प्रदूषण नियंत्रण",
+        "वृक्षारोपण"
+      ],
+      "availableTime": "मासिक 2-3 बार श्रमदान",
+      "verificationStatus": "समीक्षा में",
+      "registeredAt": "11/10/2026, 09:45 am",
+      "adminNotes": "दस्तावेज व फोटो समीक्षाधीन।"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "AUD-1791766439605",
+      "timestamp": "12/10/2026, 12:53:59 am",
+      "adminId": "SEVNF-ADMIN-01",
+      "adminName": "मुख्य अधिकृत एडमिन",
+      "action": "ADMIN_LOGIN",
+      "details": "सफलतापूर्वक एडमिन पैनल में लॉगिन किया गया।"
+    },
+    {
+      "id": "AUD-SEED-01",
+      "timestamp": "11/10/2026, 02:15 pm",
+      "adminId": "SEVNF-ADMIN-01",
+      "adminName": "मुख्य अधिकृत एडमिन",
+      "action": "APPROVE_APPLICATION",
+      "targetId": "SEVNF-VOL-000101",
+      "targetName": "राहुल शर्मा",
+      "details": "आवेदन SEVNF-APP-2026-000101 स्वीकृत किया गया। सदस्य आईडी जारी: SEVNF-MP-2026-000101"
+    }
+  ],
+  "config": {
+    "officialLogoUrl": "/file_00000000306082118bbb5f0c42339ad4.png",
+    "updatedAt": "2026-10-12T00:53:37.044Z"
+  }
+}

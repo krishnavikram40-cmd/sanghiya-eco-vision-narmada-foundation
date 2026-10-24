@@ -1,0 +1,8 @@
+{
+  "name": "संघीय इको-विजन नर्मदा फाउंडेशन",
+  "description": "माँ नर्मदा नदी के संरक्षण, घाट स्वच्छता, वृक्षारोपण, प्लास्टिक मुक्ति और पर्यावरण जागरूकता हेतु समर्पित जन-अभियान (Sanghiya Eco-Vision Narmada Foundation)",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
